@@ -4,6 +4,5 @@ current_dir = $(shell pwd)
 
 ## load dependencies for this project
 bootstrap:
-	# symlink .vim directory to user home directory
 	ln -sv $(current_dir)/.vim/ ~/.vim
 _PHONY: bootstrap
