@@ -1,2 +1,4 @@
 #ignore build harness
 *build-harness*
+
+.vim/.netrwhist
