@@ -3,6 +3,6 @@
 current_dir = $(shell pwd)
 
 ## load dependencies for this project
-bootstrap:
+bootstrap: init-build-harness
 	ln -sv $(current_dir)/.vim/ ~/.vim
 _PHONY: bootstrap

@@ -8,10 +8,10 @@ Here are some vim nouns:
 
 | Key | Operation                           |
 | --- | ----------------------------------- |
-| w   | word                                |
-| s   | sentence                            |
-| )   | sentence (another way of doing it)  |
+| b   | bracket (think programming)         |
 | p   | paragraph                           |
 | }   | paragraph (another way of doing it) |
+| s   | sentence                            |
+| )   | sentence (another way of doing it)  |
 | t   | tag block (think HTML/XML)          |
-| b   | bracket (think programming)         |
+| w   | word                                |
