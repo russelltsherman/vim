@@ -2,3 +2,5 @@
 *build-harness
 
 .vim/.netrwhist
+
+.vim/undodir/*
