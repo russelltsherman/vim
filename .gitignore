@@ -1,6 +1,11 @@
 #ignore build harness
 *build-harness
 
+# ignore netrw history
 .vim/.netrwhist
 
+# ignore plugin cache
+.vim/plugged
+
+# ignore undo directory
 .vim/undodir/*
