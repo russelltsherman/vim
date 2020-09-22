@@ -1,0 +1,64 @@
+
+syntax on
+
+set autoindent	    " Auto-indent new lines
+set backspace=indent,eol,start	" Backspace behaviour
+set colorcolumn=80
+set errorbells	    " Beep or flash screen on errors
+set expandtab	    " Use spaces instead of tabs
+set gdefault	    " Always substitute all matches in a line
+set hlsearch	    " Highlight all search results
+set ignorecase	    " Always case-insensitive
+set incsearch	    " Searches for strings incrementally
+set linebreak	    " Break lines at word (requires Wrap lines)
+set noerrorbells
+set nowrap
+set nobackup
+set number	        " Show line numbers
+set relativenumber
+set ruler	        " Show row and column ruler information
+set shiftwidth=4	" Number of auto-indent spaces
+set showbreak=+++ 	" Wrap-broken line prefix
+set showmatch	    " Highlight matching brace
+set showtabline=2	" Show tab bar
+set smartcase	    " Enable smart-case search
+set smartindent	    " Enable smart-indent
+set smarttab	    " Enable smart-tabs
+set softtabstop=4	" Number of spaces per Tab
+set spell	        " Enable spell-checking
+set tabstop=4 softtabstop=4
+set textwidth=100	" Line wrap (number of cols)
+set undodir=~/.vim/undodir
+set undofile
+set undolevels=1000	" Number of undo levels
+set visualbell	    " Use visual bell (no beeping)
+ 
+highlight ColorColumn ctermbg=darkgrey guibg=darkgrey
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'sheerun/vim-polyglot'
+Plug 'vim-utils/vim-man'
+Plug 'mbbill/undotree'
+Plug 'vuciv/vim-bujo'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-dispatch'
+Plug 'gruvbox-community/gruvbox'
+Plug 'vim-airline/vim-airline'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'theprimeagen/vim-apm'
+Plug 'theprimeagen/vim-be-good', {'do': './install.sh'}
+
+call plug#end()
+
+colorscheme gruvbox
+set background=dark
+
+if executable('rg')
+    let g:rg_derive_root='true'
+endif
+
+
