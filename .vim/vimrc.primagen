@@ -46,16 +46,12 @@ Plug 'mbbill/undotree'
 Plug 'vuciv/vim-bujo'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dispatch'
-Plug 'gruvbox-community/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'theprimeagen/vim-apm'
 Plug 'theprimeagen/vim-be-good', {'do': './install.sh'}
 
 call plug#end()
-
-colorscheme gruvbox
-set background=dark
 
 if executable('rg')
     let g:rg_derive_root='true'
