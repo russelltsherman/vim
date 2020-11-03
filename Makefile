@@ -4,6 +4,6 @@ current_dir = $(shell pwd)
 
 ## load dependencies for this project
 bootstrap: init
-	ln -sv $(current_dir)/.vim/ ~/
+	-ln -sv $(current_dir)/.vim/ ~/
 	make brew
 _PHONY: bootstrap
