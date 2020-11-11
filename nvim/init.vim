@@ -1,16 +1,43 @@
 syntax on
-set autoindent	    " Auto-indent new lines
-set backspace=indent,eol,start	" Backspace behaviour
+
+filetype on         "detect fiiles based on type
+filetype plugin on  "when a file is edited it's plugin file is loaded
+filetype indent on  "maintain indentation
+
+set autoindent	    
+set backspace=indent,eol,start
 set colorcolumn=80
-filetype on "detect fiiles based on type
-filetype plugin on "when a file is edited it's plugin file is loaded
-filetype indent on "maintain indentation
+set hidden
+set hlsearch
+set incsearch
+set noswapfile
 set nu "enable line numbers
 
+"define some env vars to make navigation easier
+""""""""""""""""""""""""""""""""""""""""""""
+let $RTP=split(&runtimepath, ',')[0] " set $RTP to user ~/.vim folder
+let $RC="$HOME/.vim/vimrc"
+
+" netrw configuration
+""""""""""""""""""""""""""""""""""""""""""""
+let g:netrw_altv = 1          " control right/left splitting
+let g:netrw_banner = 0        " The directory banner is mostly useless. 
+let g:netrw_browse_split = 2  " Open files in a vertical split
+let g:netrw_liststyle = 3     " Use Tree style listing
+let g:netrw_winsize = 25      " set width of the directory explorer
+
+"augroup ProjectDrawer
+"  autocmd!
+"  autocmd VimEnter * :Vexplore
+"augroup END
+
+" load plugins
+""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'morhetz/gruvbox'
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+Plug 'editorconfig/editorconfig-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
@@ -26,6 +53,8 @@ Plug 'fatih/vim-go'
 
 call plug#end()
 
+" color theme
+""""""""""""""""""""""""""""""""""""""""""""
 colorscheme gruvbox
 set background=dark
 
@@ -34,6 +63,7 @@ set background=dark
 " lightling configuration
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:lightline = {}
+let g:airline_powerline_fonts = 1
 let g:lightline.colorscheme = 'gruvbox'
 let g:lightline.separator = {
     \   'left': '', 'right': ''

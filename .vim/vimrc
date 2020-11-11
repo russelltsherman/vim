@@ -1,19 +1,88 @@
 syntax on
 
-set autoindent	    " Auto-indent new lines
-set backspace=indent,eol,start	" Backspace behaviour
-set colorcolumn=80
+filetype on         "detect fiiles based on type
+filetype plugin on  "when a file is edited it's plugin file is loaded
+filetype indent on  "maintain indentation
 
+set autoindent	    
+set backspace=indent,eol,start
+set colorcolumn=80
+set hidden
+set hlsearch
+set incsearch
+set noswapfile
+set nu "enable line numbers
+set path=.,**
+
+"define some env vars to make navigation easier
+""""""""""""""""""""""""""""""""""""""""""""
+let $RTP=split(&runtimepath, ',')[0] " set $RTP to user ~/.vim folder
+let $RC="$HOME/.vim/vimrc"
+
+" netrw configuration
+""""""""""""""""""""""""""""""""""""""""""""
+let g:netrw_altv = 1          " control right/left splitting
+let g:netrw_banner = 0        " The directory banner is mostly useless. 
+let g:netrw_browse_split = 2  " Open files in a vertical split
+let g:netrw_liststyle = 3     " Use Tree style listing
+let g:netrw_winsize = 25      " set width of the directory explorer
+
+"augroup ProjectDrawer
+"  autocmd!
+"  autocmd VimEnter * :Vexplore
+"augroup END
+
+
+" load plugins
+""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'morhetz/gruvbox'
+Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+Plug 'editorconfig/editorconfig-vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
+Plug 'fatih/vim-go'
+" :GoInstallBinaries to instll required go tools to GOBIN
+" :GoDoc to see documentation in local buffer
+" :GoDocBrowser to open documentation in web browser
+" :GoRun
+" :GoBuild
+
+" Plug 'tbabej/taskwiki'
+" Plug 'vimwiki/vimwiki'
 
 call plug#end()
 
+" color theme
+""""""""""""""""""""""""""""""""""""""""""""
 colorscheme gruvbox
 set background=dark
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" lightline configuration
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:lightline = {}
+let g:airline_powerline_fonts = 1
+let g:lightline.colorscheme = 'gruvbox'
+let g:lightline.separator = {
+    \   'left': '', 'right': ''
+    \ }
+let g:lightline.subseparator = {
+    \   'left': '', 'right': ''
+    \ }
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" disable gd command for vim-go - delegate to CoC
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:go_def_mapping_enabled = 0 
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CoC recommended configuration
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TextEdit might fail if hidden is not set.
 set hidden
 
@@ -61,14 +130,10 @@ else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
-" position. Coc only does snippet and additional edit on confirm.
-" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -87,8 +152,10 @@ nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
-  else
+  elseif (coc#rpc#ready())
     call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
 
@@ -130,6 +197,20 @@ xmap ic <Plug>(coc-classobj-i)
 omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
+
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+" Note coc#float#scroll works on neovim >= 0.4.0 or vim >= 8.2.0750
+nnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+nnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+inoremap <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+
+" NeoVim-only mapping for visual mode scroll
+" Useful on signatureHelp after jump placeholder of snippet expansion
+if has('nvim')
+  vnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#nvim_scroll(1, 1) : "\<C-f>"
+  vnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#nvim_scroll(0, 1) : "\<C-b>"
+endif
 
 " Use CTRL-S for selections ranges.
 " Requires 'textDocument/selectionRange' support of language server.
