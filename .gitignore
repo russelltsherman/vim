@@ -1,8 +1,18 @@
 #ignore build harness
 *build-harness
+
+Brewfile.lgok.json
+
 # ignore netrw history cache
 .vim/.netrwhist
 # ignore undodir history cache
 .vim/undodir
 # ignore plugins
 .vim/plugged
+
+# ignore netrw history cache
+nvim/.netrwhist
+# ignore undodir history cache
+nvim/undodir
+# ignore plugins
+nvim/plugged
