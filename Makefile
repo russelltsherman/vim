@@ -3,7 +3,7 @@
 current_dir = $(shell pwd)
 
 ## load dependencies for this project
-bootstrap: init
+bootstrap:
 	make brew
 	-ln -sv $(current_dir)/nvim/ ~/.config/
 	-ln -sv $(current_dir)/.vim/ ~/
