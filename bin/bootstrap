@@ -52,13 +52,13 @@ fi
 
 echo ""
 echo "#######################################################################"
-echo "initialize baseline build harness"
+echo "initialize build harness"
 echo "#######################################################################"
 make -C "${GIT_SRC}/github.com/${GIT_ORG}/${GIT_PROJECT}" init
 
 echo ""
 echo "#######################################################################"
-echo "execute baseline bootstrap"
+echo "execute bootstrap"
 echo "#######################################################################"
 make -C "${GIT_SRC}/github.com/${GIT_ORG}/${GIT_PROJECT}" bootstrap
 
