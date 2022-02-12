@@ -1,7 +1,8 @@
 #ignore build harness
 *build-harness
 
-Brewfile.lgok.json
+# ignore homebrew bundle lockfile
+*.lock.json
 
 # ignore netrw history cache
 .vim/.netrwhist
