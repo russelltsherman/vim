@@ -65464,7 +65464,7 @@ const pasteArguments = ['--clipboard', '--output'];
 const makeError = (xselError, fallbackError) => {
 	let error;
 	if (xselError.code === 'ENOENT') {
-		error = new Error('Couldn\'t find the `xsel` binary and fallback didn\'t work. On Debian/Ubuntu you can install xsel with: sudo apt install xsel');
+		error = new Error('Couldn\'t find the `xsel` binary and fallback didn\'t work. On Debian/Ubuntu you can install xsel with: sudo sudo apt-get -qq install xsel');
 	} else {
 		error = new Error('Both xsel and fallback failed');
 		error.xselError = xselError;
